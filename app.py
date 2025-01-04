@@ -2,9 +2,10 @@ from flask import Flask, request, jsonify
 import requests
 from flask_cors import CORS
 import google.generativeai as genai
+import os
 
 app = Flask(__name__)
-genai.configure(api_key="AIzaSyAHQY5RH7niqJ5hP79Z-LwZfq8UK3oiT64")
+genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 # LLM API URL
 LLM_API_URL = "http://llm-api.example.com"
