@@ -25,11 +25,11 @@ TalentScout is an intelligent Hiring Assistant chatbot designed to streamline th
      ```bash
      pip install flask flask-cors requests google-generativeai
      ```
-   - Replace the placeholder `api_key` in the `genai.configure` method with your Google Generative AI API key.
+   - Set the api key in the environment
 
 3. **Run Backend**:
    ```bash
-   python backend.py
+   python app.py
    ```
 
 4. **Set Up Frontend**:
@@ -39,7 +39,7 @@ TalentScout is an intelligent Hiring Assistant chatbot designed to streamline th
      ```
    - Run the Streamlit application:
      ```bash
-     streamlit run frontend.py
+     streamlit run chatbot.py
      ```
 
 5. **Access the Application**:
