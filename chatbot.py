@@ -14,7 +14,7 @@ if "questions" not in st.session_state:
 if "current_question" not in st.session_state:
     st.session_state.current_question = 0
 if "chat_history" not in st.session_state:
-    st.session_state.chat_history = [("Bot", "I am Hiring Assistant. Please enter your details.")]
+    st.session_state.chat_history = [("Bot", "Hello! My name is TalentScout and I am an intelligent hiring assistant. I am here to evaluate your knowledge based on your expertise. First, please enter your details or paste a cover letter containing the details such as your Full Name, Email Address, Phone Number, Years of Experience, Desired Position(s), Current Location and Tech Stack.")]
 
 # Function to handle user inputs
 def process_user_input(input_text):
@@ -30,9 +30,10 @@ def process_user_input(input_text):
         response = requests.post(f"{BACKEND_URL}/extract_user_data", json={"input": input_text})
         if response.status_code == 200:
             st.session_state.user_data = response.json()
+            #print(st.session_state.user_data)
             st.session_state.step = "ask_questions"
-            st.session_state.chat_history.append(("Bot", "Thank you! Now let's ask some technical questions."))
-            question_response = requests.post(f"{BACKEND_URL}/get_questions", json={"tech_stack": st.session_state.user_data})
+            st.session_state.chat_history.append(("Bot", "Thank you! Now let me ask some technical questions."))
+            question_response = requests.post(f"{BACKEND_URL}/get_questions", json={"userdetails": st.session_state.user_data})
             if question_response.status_code == 200:
                 st.session_state.questions = question_response.json()
                 print(st.session_state.questions)
@@ -56,13 +57,14 @@ def process_user_input(input_text):
                 st.session_state.chat_history.append(("Bot", next_question))
             else:
                 st.session_state.step = "follow_up"
-                st.session_state.chat_history.append(("Bot", "Do you have any additional questions or comments?"))
+                st.session_state.chat_history.append(("Bot", "Do you have any additional questions?"))
 
     elif st.session_state.step == "follow_up":
         response = requests.post(f"{BACKEND_URL}/follow_up", json={"input": input_text})
         if response.status_code == 200:
             follow_up = response.json().get("follow_up")
-            if follow_up:
+            #print(follow_up)
+            if follow_up!="<END>\n":
                 st.session_state.chat_history.append(("Bot", follow_up))
             else:
                 st.session_state.step = "end"
