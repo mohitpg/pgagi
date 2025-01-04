@@ -59,9 +59,9 @@ def follow_up():
         "prompt": f"Generate a follow-up response based on this user input: '{user_input}'. If no follow-up is needed, just return the string <END>",
     }
     response = chat.send_message(payload["prompt"])
-    print(response)
+    #print(response)
     assistant_message = response.text
     return jsonify({"follow_up":assistant_message})
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
