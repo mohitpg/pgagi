@@ -37,7 +37,7 @@ def get_questions():
     tech_stack = request.json.get("userdetails", "")
     print(tech_stack)
     payload = {
-        "prompt": f"Generate 3-5 technical questions for an interview based on this user tech stack and years of experience '{tech_stack}'. Return the questions seperated by two commas. Sample: why is django,, what is django,, how to use django ",
+        "prompt": f"Generate 3-5 technical questions for an interview based on this user tech stack and years of experience '{tech_stack}'. Return the questions seperated by double commas ,, . Sample: why is django,, what is django,, how to use django ",
     }
     response = chat.send_message(payload["prompt"])
     assistant_message = response.text
