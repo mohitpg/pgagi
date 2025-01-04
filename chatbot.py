@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Backend endpoint
-BACKEND_URL = "http://127.0.0.1:5000"
+BACKEND_URL = "https://pgagimohitpg.onrender.com"
 
 # Initialize session state
 if "step" not in st.session_state:
