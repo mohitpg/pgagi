@@ -38,9 +38,6 @@ def get_questions():
     payload = {
         "prompt": f"Generate 3-5 technical questions for an interview based on this user tech stack and years of experience '{tech_stack}'. Return the questions seperated by two commas. Sample: why is django,, what is django,, how to use django ",
     }
-    # payload = {
-    #     "prompt": f"Generate 3-5 technical questions for an interview based on django. Just return the questions as a question mark seperated strings like 'why is django?what is django?'.",
-    # }
     response = chat.send_message(payload["prompt"])
     assistant_message = response.text
     mylist=assistant_message.split(",,")
@@ -50,7 +47,7 @@ def get_questions():
 def store_answer():
     question = request.json.get("question", "")
     answer = request.json.get("answer", "")
-    # Logic to store answers (e.g., database or file storage) goes here
+    # Logic to store answers securely (e.g., database or file storage) goes here
     return jsonify({"status": "success"})
 
 # Generate follow-up questions using LLM
@@ -64,11 +61,6 @@ def follow_up():
     print(response)
     assistant_message = response.text
     return jsonify({"follow_up":assistant_message})
-    # response = requests.post(LLM_API_URL, json=payload)
-    # if response.status_code == 200:
-    #     return jsonify(response.json())
-    # else:
-    #     return jsonify({"error": "Failed to extract user data"}), 500
 
 if __name__ == "__main__":
     app.run()

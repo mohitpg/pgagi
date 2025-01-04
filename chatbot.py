@@ -18,11 +18,6 @@ if "chat_history" not in st.session_state:
 
 # Function to handle user inputs
 def process_user_input(input_text):
-    if input_text.lower() in ["quit", "bye"]:
-        st.session_state.step = "end"
-        st.session_state.chat_history.append(("You", input_text))
-        st.session_state.chat_history.append(("Bot", "Goodbye!"))
-        return
 
     st.session_state.chat_history.append(("You", input_text))
 
@@ -57,7 +52,7 @@ def process_user_input(input_text):
                 st.session_state.chat_history.append(("Bot", next_question))
             else:
                 st.session_state.step = "follow_up"
-                st.session_state.chat_history.append(("Bot", "Do you have any additional questions?"))
+                st.session_state.chat_history.append(("Bot", "Thank you for your response! Do you have any additional questions?"))
 
     elif st.session_state.step == "follow_up":
         response = requests.post(f"{BACKEND_URL}/follow_up", json={"input": input_text})
@@ -68,7 +63,7 @@ def process_user_input(input_text):
                 st.session_state.chat_history.append(("Bot", follow_up))
             else:
                 st.session_state.step = "end"
-                st.session_state.chat_history.append(("Bot", "Thank you for your time!"))
+                st.session_state.chat_history.append(("Bot", "Thank you for your time! We will contact you shortly"))
 
 # Display chat history
 st.title("Hiring Assistant Chatbot")
